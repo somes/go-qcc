@@ -42,13 +42,11 @@ func (c *Client) Search(companyName string) (ret []*out, err error) {
 	if len(result.List) == 0 {
 		resp := response.String()
 		if strings.Contains(resp, "verify.qcc.com") {
-			regex := `<iframe src="(.*?)"`
-			result, err2 := mth(regex, resp)
-			if err2 != nil {
-				err = err2
-				return
+			r, err := regexp.Compile(`<iframe src="(.*?)"`)
+			if err != nil {
+				return nil, err
 			}
-			fmt.Println(result)
+			fmt.Println(r.FindString(resp))
 		} else if strings.Contains(resp, "<title>会员登录 - 企查查</title>") {
 			err = util.NewError(-1, "Search: "+"login required")
 			return
@@ -70,15 +68,6 @@ func (c *Client) Search(companyName string) (ret []*out, err error) {
 		})
 	}
 	return
-}
-
-func mth(regex, str string) (result string, err error) {
-	r, err := regexp.Compile(regex)
-	if err != nil {
-		return "", err
-	}
-	result = r.FindString(str)
-	return result, nil
 }
 
 type searchMindResult struct {
