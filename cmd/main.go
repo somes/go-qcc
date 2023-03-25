@@ -1,7 +1,6 @@
 package main
 
 import (
-	"errors"
 	"go-qcc/pkg/qcc"
 	"log"
 
@@ -30,13 +29,12 @@ func main() {
 		return
 	}
 	if len(result) == 0 {
-		err = errors.New("query result is empty")
-		log.Println(err)
+		log.Println("query result is empty")
 		return
 	}
 	for _, v := range result {
 		log.Println(v.Name)
-		log.Println(v.KeyNo)
+		log.Println(v.KeyNo + "\n")
 	}
 
 }
