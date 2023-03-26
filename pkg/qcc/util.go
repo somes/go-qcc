@@ -16,7 +16,6 @@ l = (0, r.default)(t, e.data, (0, s.default)());
 func Calculate(t, edata, tid string) (key, value string, err error) {
 	i, err := l1aDefault([]string{t, edata})
 	if err != nil {
-		log.Println(err)
 		return
 	}
 
